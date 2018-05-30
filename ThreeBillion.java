@@ -12,15 +12,15 @@ public class ThreeBillion {
 
 
     public static void main(String[] args) {
-	SinWave s1 = new SinWave("JAVA", JAVA, 200, 22f);
+	SinWave s1 = new SinWave("JAVA", JAVA, 300, 22f);
 	s1.start();
 	SinWave s2 = new SinWave("YOU", YOU, 124, 22f);
 	s2.start();
-	SinWave s3 = new SinWave("DOWNLOAD", DOWNLOAD, 60, 20f);
+	SinWave s3 = new SinWave("DOWNLOAD", DOWNLOAD, 60, 18f);
 	s3.start();
-	SinWave s4 = new SinWave("ORACLE", ORACLE, 1500, 30f);
+	SinWave s4 = new SinWave("ORACLE", ORACLE, 1500, 28f);
 	s4.start();
-	SinWave s5 = new SinWave("DEVICE", DEVICE, 80, 10f);
+	SinWave s5 = new SinWave("DEVICE", DEVICE, 140, 4f);
 	s5.start();
 
     }
