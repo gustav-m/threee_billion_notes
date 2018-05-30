@@ -16,11 +16,13 @@ public class SinWave implements Runnable {
     private double[] notes;
     private String threadName;
     private int baseDuration;
+    private float volume;
 
-    SinWave(String tName, double[] givenNotes, int givenBaseDuration){
+    SinWave(String tName, double[] givenNotes, int givenBaseDuration, float vol){
 	notes = givenNotes;
 	threadName = tName;
 	baseDuration = givenBaseDuration;
+	volume = vol;
 	
     }
 
@@ -30,7 +32,7 @@ public class SinWave implements Runnable {
 	double period = (double)SAMPLE_RATE / frequency;
 	for (int i = 0; i < output.length; i++) {
 	    double angle = 2.0 * Math.PI * i / period;
-	    output[i] = (byte)(Math.sin(angle) * 20f);  }
+	    output[i] = (byte)(Math.sin(angle) * volume);  }
 
 	return output;
     }
