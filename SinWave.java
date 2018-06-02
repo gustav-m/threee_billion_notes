@@ -17,25 +17,39 @@ public class SinWave implements Runnable {
     private String threadName;
     private int baseDuration;
     private float volume;
+    private Envelope envelope;
+    
 
     SinWave(String tName, double[] givenNotes, int givenBaseDuration, float vol){
 	notes = givenNotes;
 	threadName = tName;
 	baseDuration = givenBaseDuration;
 	volume = vol;
-	
     }
 
     private byte[] sinWave(double frequency, int ms){
 	int samples = (int)((ms * SAMPLE_RATE) / 1000);
 	byte[] output = new byte[samples];
 	double period = (double)SAMPLE_RATE / frequency;
+	int[] envelopeArray = new int[samples];
+	boolean hasEnvelope = false;
+	if(Math.random() * 1000 > 300){
+	    hasEnvelope = true;
+	    envelope = new Envelope(samples);
+	    envelopeArray = envelope.randomizeEnvelope().getEnvelope();
+	}
+
 	for (int i = 0; i < output.length; i++) {
 	    double angle = 2.0 * Math.PI * i / period;
-	    output[i] = (byte)(Math.sin(angle) * volume);  }
-
+	    double sampleVol = Math.sin(angle) * volume;
+	    if(hasEnvelope){
+		sampleVol = sampleVol * envelopeArray[i] / 100000.0;
+	    }
+	    output[i] = (byte)(sampleVol);
+	}
 	return output;
     }
+
 
     public void run() {
 	try{
