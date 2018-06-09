@@ -33,7 +33,7 @@ public class SinWave implements Runnable {
 	double period = (double)SAMPLE_RATE / frequency;
 	int[] envelopeArray = new int[samples];
 	boolean hasEnvelope = false;
-	if(Math.random() * 1000 > 300){
+	if(Math.random() * 1000 > 10){
 	    hasEnvelope = true;
 	    envelope = new Envelope(samples);
 	    envelopeArray = envelope.randomizeEnvelope().getEnvelope();
@@ -43,7 +43,7 @@ public class SinWave implements Runnable {
 	    double angle = 2.0 * Math.PI * i / period;
 	    double sampleVol = Math.sin(angle) * volume;
 	    if(hasEnvelope){
-		sampleVol = sampleVol * envelopeArray[i] / 100000.0;
+		sampleVol = sampleVol * (double)envelopeArray[i] / 100000.000;
 	    }
 	    output[i] = (byte)(sampleVol);
 	}

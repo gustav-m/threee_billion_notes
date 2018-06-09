@@ -1,27 +1,37 @@
 
 public class ThreeBillion {
 
-    public static final double[] ORACLE = { 110.0, 55.0, 65.4063, 73.416 };
-    public static final double[] JAVA = {164.814, 220.000, 293.665};
-    public static final double[] YOU = {349.228, 493.883, 659.225, 880.000, 587.330, 783.991 };
-    public static final double[] DOWNLOAD = { 659.225, 987.767, 523.251 };
-    public static final double[] DEVICE = { 1479.977,  1975.533, 1760.000, 1174.659, 1174.659, 1760.000, 1760.000 };
-
-
+    public static final int[] ORACLE = { 0, 3, 6 , 9, 0, 0 ,0 };
+    public static final int[] JAVA = {7, 10, 9, 13, 16, 16, 20, 20 };
+    public static final int[] YOU = { 7, 9, 11, 13, 14, 16, 18, 21, 22, 22};
+    public static final int[] DOWNLOAD = { 7, 8, 10, 13, 12, 12, 14, 7, 10, 8};
+    public static final int[] DEVICE = { 14, 16, 18, 27, 26, 26, 27, 14, 17, 15};
     
 
-
     public static void main(String[] args) {
-	SinWave s1 = new SinWave("JAVA", JAVA, 300, 22f);
+	Note notes = new Note("A", "dorian");
+	double[] scale = notes.getScale();
+	
+	SinWave s1 = new SinWave("JAVA", getPartScale(scale, ORACLE) , 300, 26f);
 	s1.start();
-	SinWave s2 = new SinWave("YOU", YOU, 124, 22f);
+	SinWave s2 = new SinWave("YOU", getPartScale(scale, JAVA) , 124, 16f);
 	s2.start();
-	SinWave s3 = new SinWave("DOWNLOAD", DOWNLOAD, 60, 18f);
+	SinWave s3 = new SinWave("DOWNLOAD", getPartScale(scale, YOU),  60, 18f);
 	s3.start();
-	SinWave s4 = new SinWave("ORACLE", ORACLE, 1500, 28f);
+	SinWave s4 = new SinWave("ORACLE", getPartScale(scale, DOWNLOAD), 1500, 19f);
 	s4.start();
-	SinWave s5 = new SinWave("DEVICE", DEVICE, 140, 4f);
+	SinWave s5 = new SinWave("DEVICE", getPartScale(scale, DEVICE), 140, 9f);
 	s5.start();
 
+    }
+
+    private static double[] getPartScale(double[] scale, int[] indexes){
+	double[] ret = new double[indexes.length];
+
+	for(int i = 0; i < indexes.length; i++){
+	    ret[i] = scale[indexes[i]];
+	}
+
+	return ret;
     }
 }

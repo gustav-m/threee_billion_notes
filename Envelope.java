@@ -24,22 +24,26 @@ public class Envelope {
 	decayTime = (int)(Math.random() * (samples - attackTime));
 	sustainTime = samples - attackTime - decayTime;
 
-	attackLevel = (int)Math.random() * 100000;
-	decayLevel = (int)Math.random() * 100000;
-	sustainLevel = (int)Math.random() * 100000;
-	
+	attackLevel = (int)(Math.random() * 100000);
+	decayLevel = (int)(Math.random() * 100000);
+	sustainLevel = (int)(Math.random() * 100000);
+		
         return this;
     }
 
     public int[] getEnvelope(){
 	int currentvol = attackLevel;
 	for(int i = 0; i < samples; i++){
-	    if(i > 0 && i <= attackTime){
+	    if(i >= 0 && i <= attackTime){
 		currentvol = currentvol + (int)((100000 - attackLevel) / attackTime);
-	    }else if(i > attackTime && i <= decayTime){
+	    }else if(i > attackTime && i <= (attackTime + decayTime)){
 		currentvol = currentvol - (int)((100000 - decayLevel) / decayTime);
-	    }else if(i > decayTime){
-		currentvol = currentvol - (int)((100000 - sustainLevel) / sustainTime);
+	    }else if(i > (attackTime + decayTime)){
+		if(currentvol > sustainLevel){
+		    currentvol = currentvol - (int)((decayLevel - sustainLevel) / sustainTime);
+		}else{
+		    currentvol = currentvol + (int)((decayLevel - sustainLevel) / sustainTime);   
+		}
 	    }
 	    if(currentvol > 100000) {
 		currentvol = 100000;
