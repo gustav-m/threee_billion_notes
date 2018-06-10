@@ -1,6 +1,6 @@
 # threee_biliion_notes - Generative Music written in Java
 
-  * A small piece of program that plays totally differnt song each time, based on the randomness of Java's Math.randon() function and sets of tonal unit that I considered would sound beautiful in randomness.
+  * A small piece of program that plays totally differnt tune each time, based on the randomness of Java's Math.random() function and sets of tonal unit that I considered would sound beautiful in randomness.
   * This program only uses java's built-in sound library and some formula to generate sounds and has no dependency against any external libralies or external sound files.
 
 ## Prerequisites
@@ -18,7 +18,7 @@ java ThreeBillion
 ## Author
 Hisashi "Gustav" Mizuno
 
-** open for hire **
+**open for hire**
 
 ## Lisence
 GPL-3.0
