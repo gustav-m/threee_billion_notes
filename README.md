@@ -19,8 +19,9 @@ java ThreeBillion
   * The program has sets of frequencies which I chose arbitrary from equal temperament system.
     * As of now the sets are based on Dorian Scale(natural minor scale with raised 6th); and each set is more or less characterized by its fourth intervals.
   * Four independent threads plays notes chosen randomly from the set of notes described above.
+    * Sin waves to play chosen notes are calculated and generated in run time.
     * Each note's duration and envelope are decided also randomly in run time.
-  * The tonal center of the song changes in run time randomly.
+  * The tonal centers of the song change in run time randomly.
 
 ## Author
 Hisashi "Gustav" Mizuno
