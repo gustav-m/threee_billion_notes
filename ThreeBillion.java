@@ -7,9 +7,8 @@ public class ThreeBillion {
     public static final int[] DOWNLOAD = { 7, 8, 10, 13, 12, 12, 14, 7, 10, 8};
     public static final int[] DEVICE = { 14, 16, 18, 27, 26, 26, 27, 14, 17, 15};
 
-    public static final String[] TonalCenters = { "A", "D", "C", "F", "Bb", "Eb", "Ab" };
+    public static final String[] TonalCenters = { "A", "D", "C", "F", "Bb", "Eb", "Ab", "D", "A", "E", "Ab" };
 
-    public static final int SegDuration = 30000;
 
     public volatile static int conductor = 0;
     
@@ -29,7 +28,7 @@ public class ThreeBillion {
 	    s4.start();
 	    SinWave s5 = new SinWave("DEVICE", getPartScale(scale, DEVICE), 140, 9f);
 	    s5.start();
-	    Thread.sleep(SegDuration);
+	    Thread.sleep((int)(Math.random() * 30000));
 	    conductor++;
 	}
 
