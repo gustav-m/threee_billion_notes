@@ -30,11 +30,15 @@ public class noteTest {
 	    line.start();
 	
 	    int samples = (int)((400 * SAMPLE_RATE) / 1000);
+	    Envelope envelope = new Envelope(samples);
+	    int[] envelopeArray = envelope.randomizeEnvelope().getEnvelope();
+	    
 	    byte[] output = new byte[samples];
 	    double period = (double)SAMPLE_RATE / frequency;
 	    for (int i = 0; i < output.length; i++) {
 		double angle = 2.0 * Math.PI * i / period;
 		double sampleVol = Math.sin(angle) * 20f;
+		sampleVol = sampleVol * (double)envelopeArray[i] / 100000.000;		
 		output[i] = (byte)(sampleVol);
 	    }
 	    int count = line.write(output, 0, output.length);

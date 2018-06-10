@@ -11,13 +11,14 @@ public class SinWave implements Runnable {
 
     
     private static final double THREEBILLION = (10 ^ 9) * 3;
-    private static final int SAMPLE_RATE = 32 * 2048;
+    private static final int SAMPLE_RATE = 64 * 2048;
 
     private double[] notes;
     private String threadName;
     private int baseDuration;
     private float volume;
     private Envelope envelope;
+    private int conductor;
     
 
     SinWave(String tName, double[] givenNotes, int givenBaseDuration, float vol){
@@ -25,6 +26,7 @@ public class SinWave implements Runnable {
 	threadName = tName;
 	baseDuration = givenBaseDuration;
 	volume = vol;
+	conductor = ThreeBillion.conductor;
     }
 
     private byte[] sinWave(double frequency, int ms){
@@ -33,7 +35,7 @@ public class SinWave implements Runnable {
 	double period = (double)SAMPLE_RATE / frequency;
 	int[] envelopeArray = new int[samples];
 	boolean hasEnvelope = false;
-	if(Math.random() * 1000 > 10){
+	if(Math.random() * 1000 > 5.00){
 	    hasEnvelope = true;
 	    envelope = new Envelope(samples);
 	    envelopeArray = envelope.randomizeEnvelope().getEnvelope();
@@ -59,7 +61,7 @@ public class SinWave implements Runnable {
 	    line.start();
 
 	    double cnt = 0;
-	    while(cnt < THREEBILLION){
+	    while(ThreeBillion.conductor == conductor){
 		double frequency = notes[(int)(Math.random() * notes.length)];
 		int duration = (int)(Math.random() * 10)  * baseDuration;
 		byte [] toneBuffer = sinWave(frequency, duration);
