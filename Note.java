@@ -26,14 +26,14 @@ public class Note {
 	scale = new double[28];
 	
 	if(modeName.equals("dorian")){
-	    System.out.println("dorian mode");
+	    //System.out.println("dorian mode");
 	}
 	int tonalCenter = 0; // default key in A
 	for(int i = 0; i < 12; i++){
 	    if(key.equals(noteNamesFlat[i]) || key.equals(noteNamesSharp[i])){
 		tonalCenter = i;
-		System.out.println("tonal center");
-		System.out.println(tonalCenter);
+		//System.out.println("tonal center");
+		//System.out.println(tonalCenter);
 	    }
 	}
 

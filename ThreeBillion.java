@@ -14,33 +14,26 @@ public class ThreeBillion {
     
 
     public static void main(String[] args) throws InterruptedException {
-	for(int i = 0; i < TonalCenters.length; i++){
-	    Note notes = new Note(TonalCenters[i], "dorian");
-	    double[] scale = notes.getScale();
 	    
-	    SinWave s1 = new SinWave("JAVA", getPartScale(scale, ORACLE) , 300, 26f);
-	    s1.start();
-	    SinWave s2 = new SinWave("YOU", getPartScale(scale, JAVA) , 124, 16f);
-	    s2.start();
-	    SinWave s3 = new SinWave("DOWNLOAD", getPartScale(scale, YOU),  60, 18f);
-	    s3.start();
-	    SinWave s4 = new SinWave("ORACLE", getPartScale(scale, DOWNLOAD), 1500, 19f);
-	    s4.start();
-	    SinWave s5 = new SinWave("DEVICE", getPartScale(scale, DEVICE), 140, 9f);
-	    s5.start();
-	    Thread.sleep((int)(Math.random() * 30000));
-	    conductor++;
+	SinWave s1 = new SinWave("JAVA", ORACLE, TonalCenters , 300, 26f);
+	s1.start();
+	SinWave s2 = new SinWave("YOU", JAVA, TonalCenters , 124, 16f);
+	s2.start();
+	SinWave s3 = new SinWave("DOWNLOAD", YOU, TonalCenters,  60, 18f);
+	s3.start();
+	SinWave s4 = new SinWave("ORACLE", DOWNLOAD, TonalCenters, 1500, 19f);
+	s4.start();
+	SinWave s5 = new SinWave("DEVICE", DEVICE, TonalCenters, 140, 9f);
+	s5.start();
+
+	while(true){
+	    try{
+		Thread.sleep(25000);
+		conductor++;
+		System.out.println("next part");
+	    }catch(InterruptedException e){
+		System.out.println("interrupted");
+	    }
 	}
-
-    }
-
-    private static double[] getPartScale(double[] scale, int[] indexes){
-	double[] ret = new double[indexes.length];
-
-	for(int i = 0; i < indexes.length; i++){
-	    ret[i] = scale[indexes[i]];
-	}
-
-	return ret;
     }
 }

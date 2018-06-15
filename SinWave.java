@@ -11,19 +11,22 @@ public class SinWave implements Runnable {
 
     
     private static final double THREEBILLION = (10 ^ 9) * 3;
-    private static final int SAMPLE_RATE = 64 * 2048;
+    private static final int SAMPLE_RATE = 16 * 1024;
 
+    private int[] noteNumbers;
     private double[] notes;
     private String threadName;
     private int baseDuration;
     private float volume;
     private Envelope envelope;
     private int conductor;
+    private String[] tonalCenters;
     
 
-    SinWave(String tName, double[] givenNotes, int givenBaseDuration, float vol){
-	notes = givenNotes;
+    SinWave(String tName, int[] givenNoteNumbers, String[] TonalCenters, int givenBaseDuration, float vol){
+	noteNumbers = givenNoteNumbers;
 	threadName = tName;
+	tonalCenters = TonalCenters;
 	baseDuration = givenBaseDuration;
 	volume = vol;
 	conductor = ThreeBillion.conductor;
@@ -61,12 +64,21 @@ public class SinWave implements Runnable {
 	    line.start();
 
 	    double cnt = 0;
-	    while(ThreeBillion.conductor == conductor){
-		double frequency = notes[(int)(Math.random() * notes.length)];
-		int duration = (int)(Math.random() * 10)  * baseDuration;
-		byte [] toneBuffer = sinWave(frequency, duration);
-		int count = line.write(toneBuffer, 0, toneBuffer.length);
-		cnt = cnt + 0.01;
+	    for(int i = 0; i < tonalCenters.length; i++){
+		conductor = ThreeBillion.conductor;
+		Note n = new Note(tonalCenters[i], "dorian");
+		notes = getPartScale(n.getScale(), noteNumbers);
+		while(ThreeBillion.conductor == conductor){
+		    if(ThreeBillion.conductor > conductor){
+			conductor++;
+			break;
+		    }
+		    double frequency = notes[(int)(Math.random() * notes.length)];
+		    int duration = (int)(Math.random() * 10)  * baseDuration;
+		    byte [] toneBuffer = sinWave(frequency, duration);
+		    int count = line.write(toneBuffer, 0, toneBuffer.length);
+		    cnt = cnt + 0.01;
+		}
 	    }
 	    line.drain();
 	    line.close();
@@ -80,4 +92,18 @@ public class SinWave implements Runnable {
 	    t.start ();
 	}
     }
+
+
+    private double[] getPartScale(double[] scale, int[] indexes){
+	double[] ret = new double[indexes.length];
+
+	for(int i = 0; i < indexes.length; i++){
+	    ret[i] = scale[indexes[i]];
+	}
+
+	return ret;
+    }
+
+
+
 }
